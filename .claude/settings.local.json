@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__gemini-transcription__transcribe_audio",
+      "mcp__gemini-transcription__transcribe_audio_raw"
+    ]
+  }
+}
