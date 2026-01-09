@@ -1,0 +1,127 @@
+# Claude LAN Manager - Example Configuration
+#
+# Copy this file to config.yaml and customize for your network.
+#
+# The spaces_base_path is where Claude Spaces data will be stored.
+# This is kept separate from the code repository for privacy.
+
+# Path where Claude Space directories will be created
+# Each space gets its own subdirectory with CLAUDE.md, .mcp.json, and logs/
+spaces_base_path: ~/.local/share/claude-lan-manager/spaces
+
+# Terminal emulator to use (konsole, gnome-terminal, kitty, alacritty, xterm)
+terminal_emulator: konsole
+
+# Claude Code command (usually just "claude")
+claude_code_cmd: claude
+
+# Network devices with MCP servers
+# Each device needs:
+#   - id: unique identifier (used in space configs)
+#   - name: display name
+#   - ip: IP address on local network
+#   - mcp_port: port where MCP server is running
+#   - description: brief description (optional)
+#   - icon: icon hint for GUI (optional)
+devices:
+  - id: router
+    name: Ubuntu Router
+    ip: 10.0.0.1
+    mcp_port: 3001
+    description: Network router running Ubuntu (DHCP/DNS server)
+    icon: router
+
+  - id: proxmox
+    name: Proxmox
+    ip: 10.0.0.2
+    mcp_port: 8006
+    description: Hypervisor for VMs and containers
+    icon: server
+
+  - id: homeassistant
+    name: Home Assistant
+    ip: 10.0.0.3
+    mcp_port: 8123
+    description: Home automation platform
+    icon: home
+
+  - id: ubuntuvm
+    name: Ubuntu VM
+    ip: 10.0.0.4
+    mcp_port: 3000
+    description: General purpose home server
+    icon: server
+
+  - id: displaypi
+    name: Display Pi
+    ip: 10.0.0.63
+    mcp_port: 8222
+    description: Raspberry Pi running alarm panel display
+    icon: display
+
+# Claude Spaces - preconfigured assistant contexts
+# Each space defines:
+#   - id: unique identifier (becomes directory name)
+#   - name: display name in GUI
+#   - devices: list of device IDs this space can access
+#   - category: "consolidated" | "group" | "individual"
+#   - description: brief description (optional)
+spaces:
+  # Consolidated LAN Manager - all devices
+  - id: lan-manager
+    name: LAN Manager
+    devices:
+      - router
+      - proxmox
+      - homeassistant
+      - ubuntuvm
+      - displaypi
+    category: consolidated
+    description: Unified management of all network devices
+
+  # Individual device managers
+  - id: router-manager
+    name: Router Manager
+    devices:
+      - router
+    category: individual
+    description: Ubuntu router administration (DHCP/DNS)
+
+  - id: proxmox-manager
+    name: Proxmox Manager
+    devices:
+      - proxmox
+    category: individual
+    description: VM and container management
+
+  - id: homeassistant-manager
+    name: Home Assistant Manager
+    devices:
+      - homeassistant
+    category: individual
+    description: Home automation control
+
+  - id: ubuntuvm-manager
+    name: Ubuntu VM Manager
+    devices:
+      - ubuntuvm
+    category: individual
+    description: Home server administration
+
+  - id: displaypi-manager
+    name: Display Pi Manager
+    devices:
+      - displaypi
+    category: individual
+    description: Alarm panel / display management
+
+  # Optional: Group manager example (SBCs)
+  # Uncomment and customize if you have multiple SBCs
+  # - id: sbc-manager
+  #   name: SBC Manager
+  #   devices:
+  #     - displaypi
+  #     # - orangepi1
+  #     # - orangepi2
+  #   category: group
+  #   description: Single-board computers management

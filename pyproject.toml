@@ -1,0 +1,22 @@
+[project]
+name = "claude-lan-manager"
+version = "0.1.0"
+description = "GUI launcher for managing LAN devices via Claude Code with isolated MCP configurations"
+authors = [
+    { name = "Daniel Rosehill", email = "daniel@danielrosehill.co.il" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pyqt6>=6.10.2",
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+claude-lan-manager = "claude_lan_manager:main"
+claude-lan-mux = "claude_lan_manager.multiplexer:main"
+claude-lan-manager-setup = "claude_lan_manager.setup:setup_cli"
+
+[build-system]
+requires = ["uv_build>=0.9.8,<0.10.0"]
+build-backend = "uv_build"

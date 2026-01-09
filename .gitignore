@@ -4,6 +4,9 @@ private/
 # Environment variables
 .env
 
+# Local config (contains network details)
+config/config.yaml
+
 # Python
 __pycache__/
 *.py[cod]
